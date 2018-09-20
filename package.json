@@ -1,0 +1,24 @@
+{
+  "name": "voltjs-orm",
+  "version": "1.0.0",
+  "description": "VoltJS ORM",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest tests/generator.test.js && jest tests/main.test.js"
+  },
+  "keywords": [
+		"voltdb",
+		"orm",
+		"nodejs"
+  ],
+  "author": "aamadeo27",
+  "license": "MIT",
+  "dependencies": {
+    "murmurhash-native": "^3.2.4",
+    "voltjs": "github:aamadeo27/voltdb-client-nodejs#feature/promises"
+  },
+  "devDependencies": {
+    "eslint-plugin-jest": "^21.21.0",
+    "jest": "^23.5.0"
+  }
+}
