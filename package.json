@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "murmurhash-native": "^3.2.4",
+    "uuid": "^3.3.2",
     "voltjs": "github:aamadeo27/voltdb-client-nodejs#feature/promises"
   },
   "devDependencies": {
