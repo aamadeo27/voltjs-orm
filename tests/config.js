@@ -6,3 +6,5 @@ config.port = 21212;
 config.username = 'operator';
 config.password = 'mech';
 config.flushInterval = 1;
+
+module.exports = config;

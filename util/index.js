@@ -1,6 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 const { RESULT_STATUS } = require('voltjs/lib/voltconstants');
+const { Parser } = require('voltjs/lib/parser');
+const uuid = require('uuid/v1');
 
 const _mkdir = (base, dirs, resolve, reject) => {
 	const dir = base + path.sep + dirs.splice(0,1)[0];
@@ -83,9 +85,19 @@ Profiler.prototype.show = function(){
 	logger.profile(table);
 };
 
+const buffer = new Buffer(16);
+const parser = new Parser(buffer);
+const genUUID = () => {
+	uuid({},buffer,0);
+	parser.position = 0;
+
+	return parser.readLong();
+}
+
 module.exports = {
 	mkdir,
 	execStatement,
 	logger,
+	uuid: genUUID,
 	profiler: new Profiler()
 };

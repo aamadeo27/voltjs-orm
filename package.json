@@ -7,9 +7,9 @@
     "test": "jest tests/generator.test.js && jest tests/main.test.js"
   },
   "keywords": [
-		"voltdb",
-		"orm",
-		"nodejs"
+    "voltdb",
+    "orm",
+    "nodejs"
   ],
   "author": "aamadeo27",
   "license": "MIT",

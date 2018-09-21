@@ -61,7 +61,7 @@ beforeAll( async () => {
 	const { connected, errors } = await client.connect();
   
 	if (!connected){
-		throw new Error('Connection Errors' + errors.map(e => LOGIN_ERRORS[e]));
+		throw new Error('Connection Errors: ' + JSON.stringify(errors.map(e => e + ':' + LOGIN_ERRORS[e])) );
 	}
 
 	let initSQL = 'delete from users; delete from items;\n';

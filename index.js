@@ -1,11 +1,9 @@
 const Generator = require('./gen/Generator');
-const Queue = require('./core/Queue');
-const Model = require('./core/Model');
-const Statement = require('./core/Statement');
+const core = require('./core');
+const util = require('./util');
 
 module.exports = {
 	Generator,
-	Queue,
-	Model,
-	Statement
+	...core,
+	genId: util.uuid
 };
