@@ -23,19 +23,19 @@ const ddl = {
 		partition: 'partition table locks on column partition_key'
 	},
 	core_procedures: {
-		create: `create table core_procedures (
+		create: `create table voltorm_procedures (
 			namespace varchar(32) not null,
 			hashid varchar(32) not null,
 			primary key (namespace)
 		)`,
-		partition: 'partition table core_procedures on column namespace'
+		partition: 'partition table voltorm_procedures on column namespace'
 	},
 	GetcoreHashId: `create procedure GetcoreHashId 
-		partition on table core_procedures column namespace as
-		select * from core_procedures where namespace = ?`,
+		partition on table voltorm_procedures column namespace as
+		select * from voltorm_procedures where namespace = ?`,
 	SavecoreHashId: `create procedure SavecoreHashId 
-		partition on table core_procedures column namespace as
-		upsert into core_procedures values (?,?)
+		partition on table voltorm_procedures column namespace as
+		upsert into voltorm_procedures values (?,?)
 	`,
 	coreProcedure: (partition, fqcn) => `create procedure ${partition} from class ${fqcn};\n`
 };
@@ -98,7 +98,7 @@ const prepareTables = (client, tables) => {
 		ddlFull += '\n' + ddl.locks.partition + ';';
 	}
 
-	if ( !tables.find( t => t === 'core_PROCEDURES') ){
+	if ( !tables.find( t => t === 'VOLTORM_PROCEDURES') ){
 		ddlFull += '\n' + ddl.core_procedures.create + ';';
 		ddlFull += '\n' + ddl.core_procedures.partition + ';';
 	}
