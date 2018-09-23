@@ -21,7 +21,7 @@ export VOLTDB_HOME=<voltdbhome>
 - [Resources](#resources)
 
 
-Sequelize follows [SEMVER](http://semver.org). Supports Node v? and above to use ES7 features.
+VoltORM follows [SEMVER](http://semver.org). Supports Node v? and above to use ES7 features.
 
 ## Features
 
@@ -57,3 +57,49 @@ Sequelize follows [SEMVER](http://semver.org). Supports Node v? and above to use
       * update where pk-condition
   
    \* The select for update, update and delete operations are only present if the model has a primary key defined.
+
+## Get Started
+### Defining Models
+### Generating Procedures
+### Running Transactions
+```javascript
+const VoltORM = require('voltjs-orm');
+
+const confgiuration = {
+  nodes: ['volthost'],
+  port: 21212,
+  user: 'operator',
+  password: 'mech'
+};
+
+const orm = new VoltORM('Example', configuration);
+require('./userModel');
+
+orm.connect.then(response => {
+  if ( !response.connected ) {
+    throw new Error('Not Connected. Codes: ' + JSON.stringify(response.errors));
+  }
+  
+  orm.transaction( trx => {
+    const dao = trx.getDAO('USERS');
+    
+    dao.loadForUpdate(1).then( response => {
+      const user = response.results.data[0];
+      
+      user.lastLogin = new Update();
+      dao.update(user);
+    });
+    
+  }).then(() => {
+    //Transaction commited. All changes have been executed on the database.
+  }).catch( error => {
+    //Transaction aborted. No change have been executed on the database.
+    //All locks are eliminated
+  });
+});
+
+
+# To generate stored procedures is needed 
+# the voltdb-version.jar that is in VOLTDB_HOME/voltdb/voltdb-version.jar
+export VOLTDB_HOME=<voltdbhome>
+```
